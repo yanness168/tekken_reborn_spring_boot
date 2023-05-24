@@ -13,8 +13,8 @@ public class AppConfig {
     @Bean
     public HeroPool heroPool() {
         List<Fighter> fighters = new ArrayList<>();
-        fighters.add(new Fighter("Fighter1", 1250, 50, 5.0));
-        fighters.add(new Fighter("Fighter2", 1002, 60, 6.5));
+        fighters.add(new Fighter("Mario", 1250, 50, 5.0));
+        fighters.add(new Fighter("Luigi", 1002, 60, 6.5));
 
         return new HeroPool(fighters);
     }
