@@ -6,6 +6,7 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Table;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Date;
 
@@ -29,7 +30,7 @@ public class Fighter {
     @NotNull(message = "Resistance is required")
     @DecimalMin(value = "0", message = "Resistance must be at least 0")
     @DecimalMax(value = "10", message = "Resistance must be at most 10")
-    private Double resistance;
+    private BigDecimal resistance;
 
     @CreatedDate
     private Date createdAt = new Date();
@@ -66,11 +67,11 @@ public class Fighter {
         this.damage = damage;
     }
 
-    public Double getResistance() {
+    public BigDecimal getResistance() {
         return resistance;
     }
 
-    public void setResistance(Double resistance) {
+    public void setResistance(BigDecimal resistance) {
         this.resistance = resistance;
     }
 }

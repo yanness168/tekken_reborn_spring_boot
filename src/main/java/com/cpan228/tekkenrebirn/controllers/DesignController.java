@@ -1,15 +1,18 @@
 package com.cpan228.tekkenrebirn.controllers;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
 import com.cpan228.tekkenrebirn.model.Fighter;
 import com.cpan228.tekkenrebirn.model.HeroPool;
 import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import java.math.BigDecimal;
+import java.util.logging.Logger;
 
 
 @Controller
@@ -29,9 +32,9 @@ public class DesignController {
 
     @PostMapping("/add_fighter")
     public String processFighterForm(@Valid @ModelAttribute("fighter") Fighter fighter, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            return "add_fighter";
-        }
+//        if (bindingResult.hasErrors()) {
+//            return "add_fighter";
+//        }
 
         // Perform additional validations
         if (fighter.getHealth() <= 1000) {
@@ -44,14 +47,16 @@ public class DesignController {
             return "add_fighter";
         }
 
-        if (fighter.getResistance() < 0 || fighter.getResistance() > 10) {
+        if (fighter.getResistance().compareTo(BigDecimal.ZERO) < 0 || fighter.getResistance().compareTo(BigDecimal.TEN) > 0) {
             bindingResult.rejectValue("resistance", "error.fighter", "Resistance must be between 0 and 10");
             return "add_fighter";
         }
 
-        // Add the fighter to the hero pool
-        hp.saveFighter(fighter);
 
+        System.out.println("Submitted fighter: " + fighter);
+        // Add the fighter to the hero pool
+        var id = hp.saveFighter(fighter);
+        System.out.println("Saved fighter: " + id);
         return "redirect:/hero_pool";
     }
 

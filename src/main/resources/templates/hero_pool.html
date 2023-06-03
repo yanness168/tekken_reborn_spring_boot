@@ -44,9 +44,10 @@
     <tr th:each="fighter : ${fighters}">
         <td th:text="${fighter.name}"></td>
         <td th:text="${fighter.health}"></td>
-        <td th:text="${fighter.damage}"></td><!--/*@thymesVar id="resistance" type=""*/-->
+        <td th:text="${fighter.damage}"></td>
         <td th:text="${fighter.resistance}"></td>
     </tr>
+
 </table>
 
 </body>
