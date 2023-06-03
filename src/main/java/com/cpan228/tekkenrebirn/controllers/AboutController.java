@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class AboutController {
     @GetMapping("/")
+    //If you want to return a string, you need to add @ResponseBody
     public String redirectToAbout() {
         return "redirect:/about";
     }

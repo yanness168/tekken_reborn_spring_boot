@@ -1,22 +1,26 @@
 package com.cpan228.tekkenrebirn.model;
-import java.util.List;
 
+import com.cpan228.tekkenrebirn.repository.FighterRepository;
+import org.springframework.stereotype.Service;
+
+@Service
 public class HeroPool {
-    private List<Fighter> fighters;
+    private final FighterRepository fighterRepository;
 
-    public HeroPool(List<Fighter> fighters) {
-        this.fighters = fighters;
+    public HeroPool(FighterRepository fighterRepository) {
+        this.fighterRepository = fighterRepository;
     }
 
-    public List<Fighter> getFighters() {
-        return fighters;
+    public Iterable<Fighter> getFighters() {
+        return fighterRepository.findAll();
     }
 
-    public void setFighters(List<Fighter> fighters) {
-        this.fighters = fighters;
+    public Fighter getFighter(Integer id) {
+        return fighterRepository.findById(id).orElse(null);
     }
 
-    public void addFighter(Fighter fighter) {
-        this.fighters.add(fighter);
+    public Fighter saveFighter(Fighter f) {
+        fighterRepository.save(f);
+        return f;
     }
 }

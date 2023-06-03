@@ -1,5 +1,6 @@
 package com.cpan228.tekkenrebirn.controllers;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import com.cpan228.tekkenrebirn.model.Fighter;
 import com.cpan228.tekkenrebirn.model.HeroPool;
@@ -10,12 +11,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import java.util.List;
 
 @Controller
 public class DesignController {
     private final HeroPool hp;
 
+    @Autowired
     public DesignController(HeroPool hp) {
         this.hp = hp;
     }
@@ -49,14 +50,14 @@ public class DesignController {
         }
 
         // Add the fighter to the hero pool
-        hp.addFighter(fighter);
+        hp.saveFighter(fighter);
 
         return "redirect:/hero_pool";
     }
 
     @GetMapping("/hero_pool")
     public String showHeroPool(Model model) {
-        List<Fighter> fighters = hp.getFighters();
+        Iterable<Fighter> fighters = hp.getFighters();
         model.addAttribute("fighters", fighters);
         return "hero_pool";
     }

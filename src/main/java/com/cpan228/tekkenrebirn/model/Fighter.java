@@ -1,8 +1,20 @@
 package com.cpan228.tekkenrebirn.model;
 
 import jakarta.validation.constraints.*;
+import lombok.Data;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.Table;
 
+import java.time.LocalDateTime;
+import java.util.Date;
+
+@Table("FIGHTERS")
+@Data
 public class Fighter {
+    @Id
+    private Integer id;
+
     @NotEmpty(message = "Name is required")
     private String name;
 
@@ -19,14 +31,15 @@ public class Fighter {
     @DecimalMax(value = "10", message = "Resistance must be at most 10")
     private Double resistance;
 
-    public Fighter(String name, Integer health, Integer damage, Double resistance) {
-        this.name = name;
-        this.health = health;
-        this.damage = damage;
-        this.resistance = resistance;
+    @CreatedDate
+    private Date createdAt = new Date();
+
+    public Fighter() {
+        this.createdAt = new Date();
     }
 
-    public Fighter (){
+    public Integer getId() {
+        return id;
     }
 
     public String getName() {
@@ -41,7 +54,7 @@ public class Fighter {
         return health;
     }
 
-    public void setHealth(int health) {
+    public void setHealth(Integer health) {
         this.health = health;
     }
 
@@ -49,7 +62,7 @@ public class Fighter {
         return damage;
     }
 
-    public void setDamage(int damage) {
+    public void setDamage(Integer damage) {
         this.damage = damage;
     }
 
@@ -57,8 +70,9 @@ public class Fighter {
         return resistance;
     }
 
-    public void setResistance(double resistance) {
+    public void setResistance(Double resistance) {
         this.resistance = resistance;
     }
 }
+
 
