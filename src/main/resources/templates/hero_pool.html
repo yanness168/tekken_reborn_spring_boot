@@ -40,12 +40,14 @@
         <th>Health</th>
         <th>Damage</th>
         <th>Resistance</th>
+        <th>Anime From</th>
     </tr>
     <tr th:each="fighter : ${fighters}">
         <td th:text="${fighter.name}"></td>
         <td th:text="${fighter.health}"></td>
         <td th:text="${fighter.damage}"></td>
         <td th:text="${fighter.resistance}"></td>
+        <td th:text="${fighter.animeFrom}"></td>
     </tr>
 
 </table>

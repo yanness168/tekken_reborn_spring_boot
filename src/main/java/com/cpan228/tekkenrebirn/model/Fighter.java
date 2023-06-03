@@ -32,6 +32,8 @@ public class Fighter {
     @DecimalMax(value = "10", message = "Resistance must be at most 10")
     private BigDecimal resistance;
 
+    private Anime animeFrom;
+
     @CreatedDate
     private Date createdAt = new Date();
 
@@ -74,6 +76,31 @@ public class Fighter {
     public void setResistance(BigDecimal resistance) {
         this.resistance = resistance;
     }
+    public enum Anime {
+        NARUTO("Naruto"),
+        BLEACH("Bleach"),
+        ONE_PIECE("One Piece"),
+        TEKKEN("Tekken");
+
+        private String title;
+
+        private Anime(String title) {
+            this.title = title;
+        }
+
+        public String getTitle() {
+            return title;
+        }
+    }
+
+    public Anime getAnimeFrom() {
+        return animeFrom;
+    }
+
+    public void setAnimeFrom(Anime animeFrom) {
+        this.animeFrom = animeFrom;
+    }
+
 }
 
 
