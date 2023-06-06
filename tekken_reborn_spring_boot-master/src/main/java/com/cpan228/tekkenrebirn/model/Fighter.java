@@ -7,7 +7,6 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Table;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 import java.util.Date;
 
 @Table("FIGHTERS")
@@ -37,8 +36,15 @@ public class Fighter {
     @CreatedDate
     private Date createdAt = new Date();
 
+    public Fighter(String name, Integer health, Integer damage, BigDecimal resistance, Anime animeFrom) {
+        this.name = name;
+        this.health = health;
+        this.damage = damage;
+        this.resistance = resistance;
+        this.animeFrom = animeFrom;
+    }
+
     public Fighter() {
-        this.createdAt = new Date();
     }
 
     public Integer getId() {
