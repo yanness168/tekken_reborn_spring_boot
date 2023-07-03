@@ -1,10 +1,9 @@
 package com.cpan228.tekkenrebirn.repository;
 
-import com.cpan228.tekkenrebirn.model.RegistrationForm;
+import com.cpan228.tekkenrebirn.model.User;
 import org.springframework.data.repository.CrudRepository;
 
-public interface UserRepository extends CrudRepository<RegistrationForm, Long> {
-    RegistrationForm findByEmail(String email);
-
-    boolean existsByEmail(String email);
+public interface UserRepository extends CrudRepository<User, Long> {
+    User findByUsername(String username);
 }
+
