@@ -4,16 +4,17 @@ import com.cpan228.tekkenrebirn.model.User;
 import com.cpan228.tekkenrebirn.repository.UserRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-
 import static org.springframework.boot.autoconfigure.security.servlet.PathRequest.toH2Console;
 
 @Configuration
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig {
 
     @Bean
@@ -37,28 +38,24 @@ public class SecurityConfig {
         return http
                 .authorizeHttpRequests()
                 .requestMatchers(toH2Console()).permitAll()
-                .requestMatchers("/add_fighter", "/hero_pool")
-                .hasRole("USER")
+                .requestMatchers("/add_fighter", "/hero_pool", "/user", "/about")
+                .hasAnyRole("USER", "ADMIN")
                 .anyRequest().permitAll()
                 .and()
+                .oauth2Login()
+                .and()
                 .formLogin()
-                .loginPage("/login")
-
+                .loginPage("/log_in")
                 .and()
                 .logout()
                 .logoutSuccessUrl("/")
-
-                // Make H2-Console non-secured; for debug purposes
                 .and()
                 .csrf()
                 .ignoringRequestMatchers(toH2Console())
-                // Allow pages to be loaded in frames from the same origin; needed for
-                // H2-Console
                 .and()
                 .headers()
                 .frameOptions()
                 .sameOrigin()
-
                 .and()
                 .build();
     }

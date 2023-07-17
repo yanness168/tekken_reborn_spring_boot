@@ -9,10 +9,13 @@ public class RegistrationForm {
     private String username;
     private String password;
 
+    private String role;
+
     public User toUser(PasswordEncoder passwordEncoder) {
         return User.builder()
                 .username(username)
                 .password(passwordEncoder.encode(password))
+                .role(role)
                 .build();
     }
 }

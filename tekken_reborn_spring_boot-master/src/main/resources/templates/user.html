@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User Details</title>
+    <style>
+        table {
+            width: 50%;
+            margin: 20px auto;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+    </style>
+</head>
+<body>
+<h1>User Details</h1>
+<table>
+    <tr>
+        <th>Attribute</th>
+        <th>Value</th>
+    </tr>
+    <tr>
+        <td>Username</td>
+        <td th:text="${username}"></td>
+    </tr>
+    <tr>
+        <td>Role</td>
+        <td th:text="${userRole}"></td>
+    </tr>
+</table>
+</body>
+</html>

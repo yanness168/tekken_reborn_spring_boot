@@ -3,23 +3,23 @@ package com.cpan228.tekkenrebirn.controllers;
 import com.cpan228.tekkenrebirn.model.Fighter;
 import com.cpan228.tekkenrebirn.model.FighterSearchedByDto;
 import com.cpan228.tekkenrebirn.model.HeroPool;
+import com.cpan228.tekkenrebirn.model.User;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.Null;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 
 @Controller
 public class DesignController {
@@ -115,5 +115,27 @@ public class DesignController {
         model.addAttribute("totalPages", fighterPage.getTotalPages());
         model.addAttribute("fightersSearchedByDto", new FighterSearchedByDto());
         return "hero_pool";
+    }
+
+    @PreAuthorize("hasRole('ADMIN')")
+    @RequestMapping(value = "/fighters/{id}", method = RequestMethod.POST)
+    public String deleteFighter(@PathVariable Integer id, @AuthenticationPrincipal User user) {
+        var loggedInUser = user.getUsername();
+        System.out.println("Logged in user: " + loggedInUser);
+
+        try {
+            // Perform delete operation here
+            Fighter deletedFighter = hp.getFighterById(id);
+            if (deletedFighter != null) {
+                System.out.println("Deleted Fighter: " + deletedFighter);
+                hp.deleteFighter(id);
+            } else {
+                System.out.println("No fighter found with ID: " + id);
+            }
+            return "redirect:/hero_pool";
+        } catch (AccessDeniedException e) {
+            // Handle access denied exception
+            return "Sorry, You are not an admin";
+        }
     }
 }

@@ -7,8 +7,6 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -24,10 +22,6 @@ public class HeroPool {
 
     public Page<Fighter> getFighters(Pageable pageable) {
         return fighterPagRepository.findAll(pageable);
-    }
-
-    public Fighter getFighter(Integer id) {
-        return fighterRepository.findById(id).orElse(null);
     }
 
     public Fighter saveFighter(Fighter f) {
@@ -49,5 +43,13 @@ public class HeroPool {
         var endIdx = Math.min(startIdx + pageSize, filteredFighters.size());
         var subList = filteredFighters.subList(startIdx, endIdx);
         return new PageImpl<>(subList, PageRequest.of(page, pageSize), filteredFighters.size());
+    }
+
+    public void deleteFighter(Integer id) {
+        fighterRepository.deleteById(id);
+    }
+
+    public Fighter getFighterById(Integer id) {
+        return fighterRepository.findById(id).orElse(null);
     }
 }
