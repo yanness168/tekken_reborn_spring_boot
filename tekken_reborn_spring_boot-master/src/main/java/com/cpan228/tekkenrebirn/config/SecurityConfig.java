@@ -42,8 +42,6 @@ public class SecurityConfig {
                 .hasAnyRole("USER", "ADMIN")
                 .anyRequest().permitAll()
                 .and()
-                .oauth2Login()
-                .and()
                 .formLogin()
                 .loginPage("/log_in")
                 .and()

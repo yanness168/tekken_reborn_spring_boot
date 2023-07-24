@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Update Fighter</title>
+</head>
+<body>
+      <h1>Update Fighter</h1>
+      <form th:action="@{/fighters/{id}/update(id=${fighter.id})}" th:object="${fighter}" method="post">
+        <input type="hidden" name="_method" value="PUT">
+        <label for="name">Name:</label>
+        <input type="text" id="name" th:field="*{name}">
+        <label for="health">Health:</label>
+        <input type="text" id="health" th:field="*{health}">
+        <label for="damage">Damage:</label>
+        <input type="text" id="damage" th:field="*{damage}">
+        <label for="resistance">Resistance:</label>
+        <input type="text" id="resistance" th:field="*{resistance}">
+        <label for="animeFrom">Anime From:</label>
+        <input type="text" id="animeFrom" th:field="*{animeFrom}">
+        <button type="submit">Confirm Update</button>
+      </form>
+</body>
+</html>

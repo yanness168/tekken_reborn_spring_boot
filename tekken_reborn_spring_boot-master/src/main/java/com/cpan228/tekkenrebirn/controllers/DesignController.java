@@ -138,4 +138,42 @@ public class DesignController {
             return "Sorry, You are not an admin";
         }
     }
+
+    @PreAuthorize("hasRole('ADMIN')")
+    @GetMapping("/fighters/{id}/update")
+    public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
+        Fighter fighter = hp.getFighterById(id);
+        if (fighter == null) {
+            // handle the case where no fighter is found with the given id
+            return "error";
+        }
+        model.addAttribute("fighter", fighter);
+        return "updateFighter";
+    }
+
+    @PutMapping("/fighters/{id}/update")
+    public String updateFighter(@PathVariable("id") Integer id, @Valid @ModelAttribute("fighter") Fighter fighter, BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            return "updateFighter";
+        }
+
+        Fighter existingFighter = hp.getFighterById(id);
+        if (existingFighter == null) {
+            // handle the case where no fighter is found with the given id
+            return "error";
+        }
+
+        // copy the properties from the form fighter to the existing fighter
+        existingFighter.setName(fighter.getName());
+        existingFighter.setHealth(fighter.getHealth());
+        existingFighter.setDamage(fighter.getDamage());
+        existingFighter.setResistance(fighter.getResistance());
+        existingFighter.setAnimeFrom(fighter.getAnimeFrom());
+
+        // update the existing fighter
+        hp.saveFighter(existingFighter);
+
+        // redirect to the hero_pool page
+        return "redirect:/hero_pool";
+    }
 }
