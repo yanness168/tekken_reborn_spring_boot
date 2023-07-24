@@ -37,17 +37,17 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http
                 .authorizeHttpRequests()
-                .requestMatchers(toH2Console()).permitAll()
                 .requestMatchers("/add_fighter", "/hero_pool", "/user", "/about")
                 .hasAnyRole("USER", "ADMIN")
                 .anyRequest().permitAll()
                 .and()
                 .formLogin()
                 .loginPage("/log_in")
+                .defaultSuccessUrl("/hero_pool")
                 .and()
-                .logout()
-                .logoutSuccessUrl("/")
-                .and()
+                .logout(logout -> logout
+                        .logoutUrl("/log_out")
+                        .logoutSuccessUrl("/"))
                 .csrf()
                 .ignoringRequestMatchers(toH2Console())
                 .and()
@@ -57,5 +57,4 @@ public class SecurityConfig {
                 .and()
                 .build();
     }
-
 }
