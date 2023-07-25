@@ -114,7 +114,7 @@ public class DesignController {
     }
 
     @PreAuthorize("hasRole('ADMIN')")
-    @RequestMapping(value = "/fighters/{id}", method = RequestMethod.POST)
+    @DeleteMapping("/fighters/{id}")
     public String deleteFighter(@PathVariable Integer id, @AuthenticationPrincipal User user) {
         var loggedInUser = user.getUsername();
         System.out.println("Logged in user: " + loggedInUser);
