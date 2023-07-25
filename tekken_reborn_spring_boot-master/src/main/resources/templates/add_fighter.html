@@ -55,7 +55,7 @@
 </head>
 <body>
 <h1>Fighter Form</h1>
-<form action="/add_fighter" method="POST">
+<form th:action="@{/add_fighter}" method="post">
     <label for="name">Name:</label>
     <input type="text" id="name" name="name" required>
     <br>
