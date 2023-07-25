@@ -1,7 +1,7 @@
 package com.cpan228.tekkenrebirn.components;
 
 import com.cpan228.tekkenrebirn.model.Fighter;
-import com.cpan228.tekkenrebirn.model.HeroPool;
+import com.cpan228.tekkenrebirn.services.HeroPool;
 import com.cpan228.tekkenrebirn.model.Fighter.Anime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;

@@ -2,7 +2,7 @@ package com.cpan228.tekkenrebirn.controllers;
 
 import com.cpan228.tekkenrebirn.model.Fighter;
 import com.cpan228.tekkenrebirn.model.FighterSearchedByDto;
-import com.cpan228.tekkenrebirn.model.HeroPool;
+import com.cpan228.tekkenrebirn.services.HeroPool;
 import com.cpan228.tekkenrebirn.model.User;
 import jakarta.validation.Valid;
 import org.springframework.security.access.AccessDeniedException;
@@ -39,10 +39,6 @@ public class DesignController {
 
     @PostMapping("/add_fighter")
     public String processFighterForm(@Valid @ModelAttribute("fighter") Fighter fighter, BindingResult bindingResult) {
-//        if (bindingResult.hasErrors()) {
-//            return "add_fighter";
-//        }
-
         // Perform additional validations
         if (fighter.getHealth() <= 1000) {
             bindingResult.rejectValue("health", "error.fighter", "Health must be more than 1000");

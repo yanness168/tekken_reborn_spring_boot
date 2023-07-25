@@ -1,5 +1,6 @@
-package com.cpan228.tekkenrebirn.model;
+package com.cpan228.tekkenrebirn.services;
 
+import com.cpan228.tekkenrebirn.model.Fighter;
 import com.cpan228.tekkenrebirn.repository.FighterPagRepository;
 import com.cpan228.tekkenrebirn.repository.FighterRepository;
 import org.springframework.data.domain.Page;
